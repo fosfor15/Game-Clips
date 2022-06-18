@@ -1,0 +1,69 @@
+<form
+    [formGroup]="registerForm"
+    (ngSubmit)="submitRegistration()"
+>
+    <!-- Alert message -->
+    <app-alert
+        *ngIf="isAlertVisible"
+        [bg-color]="alertColor"
+    >
+        {{ alertMessage }}
+    </app-alert>
+
+    <!-- Name -->
+    <app-input
+        name="name"
+        [control]="registerForm.controls.name"
+        [required]="true"
+    ></app-input>
+
+    <!-- Email -->
+    <app-input
+        name="email"
+        type="email"
+        [control]="registerForm.controls.email"
+        [required]="true"
+    ></app-input>
+
+    <!-- Age -->
+    <app-input
+        name="age"
+        type="number"
+        [control]="registerForm.controls.age"
+    ></app-input>
+
+    <!-- Password -->
+    <app-input
+        name="password"
+        type="password"
+        [control]="registerForm.controls.password"
+        [required]="true"
+    ></app-input>
+
+    <!-- Confirm Password -->
+    <app-input
+        name="confirm-password"
+        type="password"
+        [control]="registerForm.controls['confirm-password']"
+        [required]="true"
+        placeholder="Confirm password"
+    ></app-input>
+
+    <!-- Phone Number -->
+    <app-input
+        name="phone"
+        [control]="registerForm.controls['phone']"
+        [mask]="{
+            format: '(000) 000-00-00',
+            prefix: '+7 '
+        }"
+    ></app-input>
+
+    <button
+        type="submit"
+        class="block w-full bg-indigo-400 text-white mt-11 py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
+        [disabled]="registerForm.invalid"
+    >
+        Submit
+    </button>
+</form>

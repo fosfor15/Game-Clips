@@ -1,6 +1,6 @@
 <div
     class="fixed z-50 inset-0 overflow-y-auto"
-    [class.hidden]="modal.isVisible(id)"
+    [class.hidden]="!modal.isVisible(id)"
     id="modal"
     (keydown)="closeModal(id, $event.code)"
 >

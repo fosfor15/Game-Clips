@@ -1,0 +1,83 @@
+<div class="mb-3">
+    <div class="flex mb-2 justify-between">
+        <label [for]="name">{{ label | titlecase }}</label>
+
+        <ng-container *ngIf="control.touched && control.dirty">
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['required']"
+            >
+                The value is required
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['minlength']"
+            >
+                Minimal allowed length is {{ control.errors?.['minlength'].requiredLength }} characters
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['email']"
+            >
+                The email address is invalid
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['min']"
+            >
+                Minimal allowed age is {{ control.errors?.['min'].min }} years
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['max']"
+            >
+                Maximal age is {{ control.errors?.['max'].max }} years
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['pattern']"
+            >
+                The password must be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['mask']"
+            >
+                The phone number must match to a mask<br>
+                +7 (XXX) XXX-XX-XX
+            </p>
+        </ng-container>
+    </div>
+
+    <ng-container [ngSwitch]="name">
+        <input
+            *ngSwitchDefault
+            [type]="type"
+            [id]="name"
+            [formControl]="control"
+            [required]="required"
+            class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
+            [placeholder]="placeholder"
+        >
+        <input
+            *ngSwitchCase="'age'"
+            [type]="type"
+            [id]="name"
+            [formControl]="control"
+            class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
+            [placeholder]="placeholder"
+            min="18"
+            max="120"
+        >
+        <input
+            *ngSwitchCase="'phone'"
+            [type]="type"
+            [id]="name"
+            [formControl]="control"
+            [mask]="mask.format"
+            [prefix]="control.pristine ? '' : mask.prefix"
+            class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
+            [placeholder]="placeholder"
+        >
+    </ng-container>
+</div>

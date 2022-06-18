@@ -34,5 +34,13 @@ export class ModalService {
         if (modal) {
             modal.visible = !modal.visible;
         }
+
+        // ToDo:
+        // Need more effective vanilla-DOM-less access to body element and toggling its overflow property
+        if (modal?.visible && document.body.style.overflow != 'hidden') {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     }
 }
