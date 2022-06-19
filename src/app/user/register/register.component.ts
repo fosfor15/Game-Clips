@@ -57,8 +57,7 @@ export class RegisterComponent {
 
     // ToDo:
     // 1. Matching and validating feature for password and confirm-password inputs
-    // 2. Event handler of phone number input for reset its value to pristine and empty string, in purpose of remove mask prefix +7
-    // 3. Feature for moving from Register to Login tab after ngSubmit fires
+    // 2. Feature for moving from Register to Login tab after ngSubmit fires
 
     // ? Error: NG0100: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value for 'ng-pristine': 'true'. Current value: 'false'. Find more at https://angular.io/errors/NG0100
 

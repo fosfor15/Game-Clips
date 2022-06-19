@@ -59,11 +59,10 @@
         }"
     ></app-input>
 
-    <button
+    <app-button
         type="submit"
-        class="block w-full bg-indigo-400 text-white mt-11 py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
+        text="submit"
         [disabled]="registerForm.invalid"
-    >
-        Submit
-    </button>
+        class="block w-full mt-11"
+    ></app-button>
 </form>

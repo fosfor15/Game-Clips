@@ -15,7 +15,7 @@
         <div class="flex mb-2 justify-between">
             <label for="login-email" class="inline-block mb-2">Email</label>
             <p
-                *ngIf="loginEmail.touched && loginEmail.dirty && loginEmail.errors"
+                *ngIf="loginEmail.touched && loginEmail.dirty && loginEmail.value && loginEmail.errors"
                 class="text-red-400"
             >
                 The email address is invalid
@@ -40,7 +40,7 @@
         <div class="flex mb-2 justify-between">
             <label for="login-password" class="inline-block mb-2">Password</label>
             <p
-                *ngIf="loginPassword.touched && loginPassword.dirty && loginPassword.errors"
+                *ngIf="loginPassword.touched && loginPassword.dirty && loginPassword.value && loginPassword.errors"
                 class="ml-2 text-red-400 text-right"
             >
                 The password must be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit
@@ -60,11 +60,10 @@
         >
     </div>
 
-    <button
+    <app-button
         type="submit"
-        class="block w-full bg-indigo-400 text-white mt-11 py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
-        [disabled]="loginForm.invalid"
-    >
-        Submit
-    </button>
+        text="submit"
+        [disabled]="!!loginForm.invalid"
+        class="block w-full mt-11"
+    ></app-button>
 </form>

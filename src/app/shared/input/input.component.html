@@ -2,7 +2,7 @@
     <div class="flex mb-2 justify-between">
         <label [for]="name">{{ label | titlecase }}</label>
 
-        <ng-container *ngIf="control.touched && control.dirty">
+        <ng-container *ngIf="control.touched && control.dirty && control.value">
             <p
                 class="ml-2 text-red-400 text-right"
                 *ngIf="control.errors?.['required']"

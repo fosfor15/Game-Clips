@@ -28,4 +28,9 @@ export class InputComponent implements OnInit {
         }
     }
 
+    // ToDo:
+    // 1. Universal input component for Login and Register forms
+    // 2. Event handler of phone number input for reset its value to pristine and empty string, in purpose of remove mask prefix +7
+    // 3. Errors and recommendations messaging when change or blur events fires
+
 }

@@ -35,5 +35,5 @@ export class LoginComponent {
 
     // ToDo:
     // 1. Choose between reactive- and template-driven form approach and implement it
-    // 2. Create universal input component
+
 }

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 
+import { ButtonComponent } from './button/button.component';
+import { InputComponent } from './input/input.component';
+import { AlertComponent } from './alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { TabsContainerComponent } from './tabs-container/tabs-container.component';
 import { TabComponent } from './tab/tab.component';
-import { InputComponent } from './input/input.component';
-import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
     imports: [
@@ -16,18 +17,20 @@ import { AlertComponent } from './alert/alert.component';
         NgxMaskModule.forRoot()
     ],
     declarations: [
+        InputComponent,
+        ButtonComponent,
+        AlertComponent,
         ModalComponent,
         TabsContainerComponent,
-        TabComponent,
-        InputComponent,
-        AlertComponent
+        TabComponent
     ],
     exports: [
+        InputComponent,
+        ButtonComponent,
+        AlertComponent,
         ModalComponent,
         TabsContainerComponent,
-        TabComponent,
-        InputComponent,
-        AlertComponent
+        TabComponent
     ]
 })
 export class SharedModule { }
