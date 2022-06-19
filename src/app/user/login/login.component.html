@@ -1,21 +1,60 @@
-<form>
+<form
+    #loginForm="ngForm"
+    (ngSubmit)="submitLogin(loginForm)"
+>
+    <!-- Alert message -->
+    <app-alert
+        *ngIf="isAlertVisible"
+        [bg-color]="alertColor"
+    >
+        {{ alertMessage }}
+    </app-alert>
+
     <!-- Email -->
     <div class="mb-3">
-        <label for="login-email" class="inline-block mb-2">Email</label>
+        <div class="flex mb-2 justify-between">
+            <label for="login-email" class="inline-block mb-2">Email</label>
+            <p
+                *ngIf="loginEmail.touched && loginEmail.dirty && loginEmail.errors"
+                class="text-red-400"
+            >
+                The email address is invalid
+            </p>
+        </div>
+
         <input
             type="email"
             id="login-email"
+            name="login-email"
+            #loginEmail="ngModel"
+            [(ngModel)]="credentials.email"
+            [pattern]="emailRegexp"
+            required
             class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
             placeholder="Enter Email"
         >
     </div>
 
     <!-- Password -->
-    <div class="mb-11">
-        <label for="login-password" class="inline-block mb-2">Password</label>
+    <div class="mb-3">
+        <div class="flex mb-2 justify-between">
+            <label for="login-password" class="inline-block mb-2">Password</label>
+            <p
+                *ngIf="loginPassword.touched && loginPassword.dirty && loginPassword.errors"
+                class="ml-2 text-red-400 text-right"
+            >
+                The password must be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit
+            </p>
+        </div>
+
         <input
             type="password"
             id="login-password"
+            name="login-password"
+            #loginPassword="ngModel"
+            [(ngModel)]="credentials.password"
+            [pattern]="passwordRegexp"
+            required
             class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
             placeholder="Enter Password"
         >
@@ -23,7 +62,8 @@
 
     <button
         type="submit"
-        class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition hover:bg-indigo-500"
+        class="block w-full bg-indigo-400 text-white mt-11 py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
+        [disabled]="loginForm.invalid"
     >
         Submit
     </button>

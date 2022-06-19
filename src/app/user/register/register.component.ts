@@ -42,10 +42,12 @@ export class RegisterComponent {
     });
 
     submitRegistration() {
+        console.log('Registration data :>> ',
+            JSON.stringify(this.registerForm.value, null, 4));
         this.registerForm.reset();
 
         this.isAlertVisible = true;
-        this.alertMessage = 'Please wait! Your account is being created.';
+        this.alertMessage = 'Please wait! Your account registration request is under processing.';
         this.alertColor = 'green';
 
         setTimeout(() => {
@@ -57,5 +59,7 @@ export class RegisterComponent {
     // 1. Matching and validating feature for password and confirm-password inputs
     // 2. Event handler of phone number input for reset its value to pristine and empty string, in purpose of remove mask prefix +7
     // 3. Feature for moving from Register to Login tab after ngSubmit fires
+
+    // ? Error: NG0100: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value for 'ng-pristine': 'true'. Current value: 'false'. Find more at https://angular.io/errors/NG0100
 
 }
