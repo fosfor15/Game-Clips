@@ -25,4 +25,4 @@ import { RegisterComponent } from './register/register.component';
         AuthModalComponent
     ]
 })
-export class UserModule { }
+export class UserModule {}

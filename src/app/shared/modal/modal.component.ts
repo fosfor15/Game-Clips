@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -6,12 +6,13 @@ import { ModalService } from 'src/app/services/modal.service';
     templateUrl: './modal.component.html',
     styleUrls: [ './modal.component.css' ]
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
+
     @Input() id: string = '';
 
-    constructor(protected modal: ModalService) { }
-
-    ngOnInit(): void { }
+    constructor(
+        protected modal: ModalService
+    ) {}
 
     closeModal(id: string, keyCode?: string ): void {
         if (!keyCode || keyCode == 'Escape') {

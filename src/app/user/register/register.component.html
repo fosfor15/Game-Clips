@@ -15,7 +15,7 @@
         name="name"
         [control]="registerForm.controls.name"
         [required]="true"
-    ></app-input>
+    />
 
     <!-- Email -->
     <app-input
@@ -23,14 +23,14 @@
         type="email"
         [control]="registerForm.controls.email"
         [required]="true"
-    ></app-input>
+    />
 
     <!-- Age -->
     <app-input
         name="age"
         type="number"
         [control]="registerForm.controls.age"
-    ></app-input>
+    />
 
     <!-- Password -->
     <app-input
@@ -38,7 +38,7 @@
         type="password"
         [control]="registerForm.controls.password"
         [required]="true"
-    ></app-input>
+    />
 
     <!-- Confirm Password -->
     <app-input
@@ -47,7 +47,7 @@
         [control]="registerForm.controls['confirm-password']"
         [required]="true"
         placeholder="Confirm password"
-    ></app-input>
+    />
 
     <!-- Phone Number -->
     <app-input
@@ -57,12 +57,12 @@
             format: '(000) 000-00-00',
             prefix: '+7 '
         }"
-    ></app-input>
+    />
 
     <app-button
         type="submit"
         text="submit"
         [disabled]="registerForm.invalid"
         class="block w-full mt-11"
-    ></app-button>
+    />
 </form>
