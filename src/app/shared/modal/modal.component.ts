@@ -14,10 +14,8 @@ export class ModalComponent {
         protected modal: ModalService
     ) {}
 
-    closeModal(id: string, keyCode?: string ): void {
-        if (!keyCode || keyCode == 'Escape') {
-            this.modal.toggleVisible(id);
-        }
+    closeModal(id: string): void {
+        this.modal.toggleVisible(id);
     }
 
 }
