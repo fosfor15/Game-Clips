@@ -12,9 +12,9 @@ export class HeaderComponent {
         private modal: ModalService
     ) {}
 
-    openModal(event: Event): void {
-        event.preventDefault();
+    openModal(): false {
         this.modal.toggleVisible('auth');
+        return false;
     }
 
 }
