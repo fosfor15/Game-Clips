@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
+
+import { Auth, signOut } from '@angular/fire/auth';
+
 import { ModalService } from '../services/modal.service';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
     selector: 'app-header',
@@ -9,12 +14,19 @@ import { ModalService } from '../services/modal.service';
 export class HeaderComponent {
 
     constructor(
-        private modal: ModalService
+        private modal: ModalService,
+        private authFBService: Auth,
+        protected readonly authService: AuthService
     ) {}
 
-    openModal(): false {
+    openModal(event: Event) {
+        event.preventDefault();
         this.modal.toggleVisible('auth');
-        return false;
+    }
+
+    async logOut(event: Event) {
+        event.preventDefault();
+        await signOut(this.authFBService);
     }
 
 }

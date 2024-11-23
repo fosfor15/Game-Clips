@@ -1,36 +1,60 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent {
-    credentials: Record<'email' | 'password', string> = {
+
+    public credentials: Record<'email' | 'password', string> = {
         email: '',
         password: ''
     };
 
-    isAlertVisible: boolean = false;
-    alertMessage: string = '';
-    alertColor: string = '';
+    public isAlertVisible: boolean = false;
+    public alertMessage: string = '';
+    public alertColor: string = '';
 
-    emailRegexp: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    passwordRegexp: RegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    public inSubmit: boolean = false;
 
-    submitLogin(loginForm: NgForm): void {
-        console.log('Registration data :>> ',
-            JSON.stringify(this.credentials, null, 4));
-        loginForm.reset();
+    public emailRegexp: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    public passwordRegexp: RegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
-        this.isAlertVisible = true;
+
+    constructor(
+        private authService: Auth
+    ) {}
+
+
+    async submitLogin(): Promise<void> {
+        this.inSubmit = this.isAlertVisible = true;
         this.alertMessage = 'Please wait! Your login request is under processing.';
         this.alertColor = 'green';
 
+        try {
+            await signInWithEmailAndPassword(
+                this.authService,
+                this.credentials.email,
+                this.credentials.password
+            );
+
+            this.alertMessage = 'You have successfully login into the account!';
+        }
+        catch (error) {
+            console.log(error);
+            this.alertMessage = 'An unexpected error occurred! Please try again later.';
+            this.alertColor = 'red';
+            this.inSubmit = false;
+        }
+
         setTimeout(() => {
-            this.isAlertVisible = false;
-        }, 3e3);
+            this.inSubmit = this.isAlertVisible = false;
+        }, 2e3);
     }
 
     // ToDo:

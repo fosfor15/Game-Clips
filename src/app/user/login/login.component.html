@@ -1,6 +1,6 @@
 <form
     #loginForm="ngForm"
-    (ngSubmit)="submitLogin(loginForm)"
+    (ngSubmit)="submitLogin()"
 >
     <!-- Alert message -->
     <app-alert
@@ -63,7 +63,7 @@
     <app-button
         type="submit"
         text="submit"
-        [disabled]="!!loginForm.invalid"
+        [disabled]="!!loginForm.invalid || inSubmit"
         class="block w-full mt-11"
     />
 </form>

@@ -12,21 +12,35 @@
             <!-- Primary Navigation -->
             <ul class="flex flex-row mt-1">
                 <!-- Navigation Links -->
-                <li>
-                    <a
-                        class="px-2 hover:text-indigo-400 transition"
-                        href="#"
-                        (click)="openModal()"
-                    >
-                        Login / Register
-                    </a>
-                </li>
-                <li>
-                    <a class="px-2 hover:text-indigo-400 transition" href="#">Manage</a>
-                </li>
-                <li>
-                    <a class="px-2 hover:text-indigo-400 transition" href="#">Upload</a>
-                </li>
+
+                <ng-container *ngIf="authService.authState$ | async; else loginRegister">
+                    <li>
+                        <a
+                            class="px-2 hover:text-indigo-400 transition"
+                            href="#"
+                            (click)="logOut($event)"
+                        >
+                            Log out
+                        </a>
+                    </li>
+                    <li>
+                        <a class="px-2 hover:text-indigo-400 transition" href="#">Manage</a>
+                    </li>
+                    <li>
+                        <a class="px-2 hover:text-indigo-400 transition" href="#">Upload</a>
+                    </li>
+                </ng-container>
+                <ng-template #loginRegister>
+                    <li>
+                        <a
+                            class="px-2 hover:text-indigo-400 transition"
+                            href="#"
+                            (click)="openModal($event)"
+                        >
+                            Login / Register
+                        </a>
+                    </li>
+                </ng-template>
                 <li>
                     <a class="px-2 hover:text-indigo-400 transition" href="#">About</a>
                 </li>

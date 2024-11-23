@@ -42,9 +42,9 @@
 
     <!-- Confirm Password -->
     <app-input
-        name="confirm-password"
+        name="confirmPassword"
         type="password"
-        [control]="registerForm.controls['confirm-password']"
+        [control]="registerForm.controls.confirmPassword"
         [required]="true"
         placeholder="Confirm password"
     />
@@ -62,7 +62,7 @@
     <app-button
         type="submit"
         text="submit"
-        [disabled]="registerForm.invalid"
+        [disabled]="registerForm.invalid || inSubmit"
         class="block w-full mt-11"
     />
 </form>

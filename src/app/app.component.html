@@ -4,7 +4,12 @@
 <!-- Intro Section -->
 <section class="relative overflow-hidden mb-2">
     <!-- The video -->
-    <video autoplay muted loop class="w-full h-full object-cover absolute z-0">
+    <video
+        class="w-full h-full object-cover absolute z-0"
+        autoplay
+        muted
+        loop
+    >
         <source src="assets/video/hero.webm" type="video/webm">
     </video>
 
@@ -241,4 +246,4 @@
 </section>
 
 <!-- Auth Modal -->
-<app-auth-modal />
+<app-auth-modal *ngIf="renderAuthModal" />
