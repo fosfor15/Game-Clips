@@ -1,6 +1,6 @@
 <div class="mb-3">
     <div class="flex mb-2 justify-between">
-        <label [for]="name">{{ label | titlecase }}</label>
+        <label [for]="name">{{ label }}</label>
 
         <ng-container *ngIf="control.touched && control.dirty && control.value">
             <p
@@ -23,6 +23,12 @@
             </p>
             <p
                 class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['emailTaken']"
+            >
+                The email address is taken, use another one
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
                 *ngIf="control.errors?.['min']"
             >
                 Minimal allowed age is {{ control.errors?.['min'].min }} years
@@ -38,6 +44,12 @@
                 *ngIf="control.errors?.['pattern']"
             >
                 The password must be at least 8 characters long, have 1 uppercase letter, 1 lowercase letter and 1 digit
+            </p>
+            <p
+                class="ml-2 text-red-400 text-right"
+                *ngIf="control.errors?.['noMatch']"
+            >
+                The passwords must be equal
             </p>
             <p
                 class="ml-2 text-red-400 text-right"

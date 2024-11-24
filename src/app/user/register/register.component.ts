@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import IUser from 'src/app/models/user.model';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { match } from './validators/match.validator';
+import { EmailTaken } from './validators/email-taken.validator';
+
+import IUser from 'src/app/models/user.model';
 
 
 @Component({
@@ -26,7 +29,7 @@ export class RegisterComponent {
         email: new FormControl('', [
             Validators.required,
             Validators.email
-        ]),
+        ], this.emailTaken.validate),
         age: new FormControl(0, [
             Validators.min(18),
             Validators.max(120)
@@ -35,39 +38,32 @@ export class RegisterComponent {
             Validators.required,
             Validators.pattern(this.passwordRegexp)
         ]),
-        confirmPassword: new FormControl('', [
-            Validators.required,
-            Validators.pattern(this.passwordRegexp)
-        ]),
+        confirmPassword: new FormControl('',
+            Validators.required
+        ),
         phone: new FormControl('')
-    });
+    }, match('password', 'confirmPassword'));
 
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private emailTaken: EmailTaken
     ) {}
 
     public async submitRegistration() {
         const { confirmPassword, ...userData } = this.registerForm.value;
-        this.isAlertVisible = true;
 
-        if (userData.password == confirmPassword) {
-            try {
-                this.alertMessage = 'Please wait! Your account registration request is under processing.';
-                this.alertColor = 'green';
-                this.inSubmit = true;
+        this.inSubmit = this.isAlertVisible = true;
+        this.alertMessage = 'Please wait! Your account registration request is under processing.';
+        this.alertColor = 'green';
 
-                await this.authService.createUser(userData as IUser);
-
-                this.alertMessage = 'Success! Your account has been created.';
-            }
-            catch (error) {
-                console.log(error);
-                this.inSubmit = false;
-                this.alertMessage = 'An unexpected error occurred! Please try again later.';
-                this.alertColor = 'red';
-            }
-        } else {
-            this.alertMessage = 'Passwords must be equal';
+        try {
+            await this.authService.createUser(userData as IUser);
+            this.alertMessage = 'Success! Your account has been created.';
+        }
+        catch (error) {
+            console.log(error);
+            this.inSubmit = false;
+            this.alertMessage = 'An unexpected error occurred! Please try again later.';
             this.alertColor = 'red';
         }
 
