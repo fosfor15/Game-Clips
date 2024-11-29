@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Auth, signOut } from '@angular/fire/auth';
 
 import { ModalService } from '../services/modal.service';
 import { AuthService } from '../services/auth.service';
+import { IsActiveMatchOptions } from '@angular/router';
 
 
 @Component({
@@ -13,9 +13,17 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent {
 
+    public activeLinkOptions: IsActiveMatchOptions = {
+        matrixParams: 'ignored',
+        queryParams: 'ignored',
+        paths: 'subset',
+        fragment: 'ignored'
+    };
+
+    public defaultSortTypeParam = { sort: '1' };
+
     constructor(
         private modal: ModalService,
-        private authFBService: Auth,
         protected readonly authService: AuthService
     ) {}
 
@@ -26,7 +34,7 @@ export class HeaderComponent {
 
     async logOut(event: Event) {
         event.preventDefault();
-        await signOut(this.authFBService);
+        await this.authService.logout();
     }
 
 }

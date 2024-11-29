@@ -3,7 +3,7 @@
         <!-- App Name -->
         <a
             class="text-3xl text-indigo-400 font-bold uppercase mr-4"
-            href="index.html"
+            routerLink="/"
         >
             Game Clips
         </a>
@@ -24,10 +24,24 @@
                         </a>
                     </li>
                     <li>
-                        <a class="px-2 hover:text-indigo-400 transition" href="#">Manage</a>
+                        <a
+                            class="px-2 hover:text-indigo-400 transition"
+                            routerLink="/manage"
+                            routerLinkActive="text-indigo-400"
+                            [routerLinkActiveOptions]="activeLinkOptions"
+                            [queryParams]="defaultSortTypeParam"
+                        >
+                            Manage
+                        </a>
                     </li>
                     <li>
-                        <a class="px-2 hover:text-indigo-400 transition" href="#">Upload</a>
+                        <a
+                            class="px-2 hover:text-indigo-400 transition"
+                            routerLink="/upload"
+                            routerLinkActive="text-indigo-400"
+                        >
+                            Upload
+                        </a>
                     </li>
                 </ng-container>
                 <ng-template #loginRegister>
@@ -42,7 +56,13 @@
                     </li>
                 </ng-template>
                 <li>
-                    <a class="px-2 hover:text-indigo-400 transition" href="#">About</a>
+                    <a
+                        class="px-2 hover:text-indigo-400 transition"
+                        routerLink="/about"
+                        routerLinkActive="text-indigo-400"
+                    >
+                        About
+                    </a>
                 </li>
             </ul>
 

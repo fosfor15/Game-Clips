@@ -10,6 +10,12 @@ import { UserModule } from './user/user.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
+import { ManageComponent } from './pages/manage/manage.component';
+import { UploadComponent } from './pages/upload/upload.component';
+import { ClipComponent } from './pages/clip/clip.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 @NgModule({
@@ -25,7 +31,13 @@ import { HeaderComponent } from './header/header.component';
     ],
     declarations: [
         AppComponent,
-        HeaderComponent
+        HeaderComponent,
+        HomeComponent,
+        AboutComponent,
+        ManageComponent,
+        UploadComponent,
+        ClipComponent,
+        NotFoundComponent
     ],
     bootstrap: [
         AppComponent
