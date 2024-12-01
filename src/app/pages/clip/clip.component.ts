@@ -9,7 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class ClipComponent implements OnInit {
 
-    id: string = '';
+    public id: string = '';
 
     constructor(
         private activatedRoute: ActivatedRoute
