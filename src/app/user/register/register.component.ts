@@ -61,7 +61,7 @@ export class RegisterComponent {
             this.alertMessage = 'Success! Your account has been created.';
         }
         catch (error) {
-            console.log(error);
+            console.log('Error with registering: ', error);
             this.inSubmit = false;
             this.alertMessage = 'An unexpected error occurred! Please try again later.';
             this.alertColor = 'red';

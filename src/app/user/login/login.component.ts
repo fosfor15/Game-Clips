@@ -46,7 +46,7 @@ export class LoginComponent {
             this.alertMessage = 'You have successfully login into the account!';
         }
         catch (error) {
-            console.log(error);
+            console.log('Error with authorization: ', error);
             this.alertMessage = 'An unexpected error occurred! Please try again later.';
             this.alertColor = 'red';
             this.inSubmit = false;
