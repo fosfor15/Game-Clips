@@ -8,7 +8,7 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class ModalComponent {
 
-    @Input() id: string = '';
+    @Input({ required: true }) id: string = '';
 
     constructor(
         protected modal: ModalService

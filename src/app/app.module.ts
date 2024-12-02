@@ -21,6 +21,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 import { EventBlockerDirective } from './shared/directives/event-blocker.directive';
 import { SharedModule } from './shared/shared.module';
+import { EditComponent } from './video/edit/edit.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { SharedModule } from './shared/shared.module';
         UploadComponent,
         ClipComponent,
         NotFoundComponent,
-        EventBlockerDirective
+        EventBlockerDirective,
+        EditComponent
     ],
     bootstrap: [
         AppComponent
