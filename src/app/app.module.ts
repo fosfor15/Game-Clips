@@ -22,6 +22,8 @@ import { ClipComponent } from './pages/clip/clip.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EditComponent } from './video/edit/edit.component';
 
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
     imports: [
@@ -31,9 +33,7 @@ import { EditComponent } from './video/edit/edit.component';
         AppRoutingModule,
         UserModule,
         SharedModule,
-        provideFirebaseApp(() => initializeApp({
-            /* ... */
-        })),
+        provideFirebaseApp(() => initializeApp(environment.firebaseSetting)),
         provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
         provideStorage(() => getStorage())
