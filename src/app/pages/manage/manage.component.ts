@@ -37,14 +37,9 @@ export class ManageComponent implements OnInit {
         queryResults.forEach(document => {
             const data = document.data();
             this.clips.push({
-                uid: data['uid'],
-                userName: data['userName'],
-                title: data['title'],
-                fileName: data['fileName'],
-                clipUrl: data['clipUrl'],
+                ...data,
                 docId: document.id,
-                timestamp: data['timestamp']
-            })
+            } as IClip)
         });
         this.sortClips(this.sortType);
 

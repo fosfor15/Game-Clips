@@ -13,9 +13,17 @@
             <p *ngIf="showProgress">{{ progress | percent }}</p>
         </app-alert>
 
+        <ng-template
+            [ngTemplateOutlet]="loader"
+            [ngTemplateOutletContext]="{
+                condition: !isAvailable,
+                class: 'my-12'
+            }"
+        ></ng-template>
+
         <!-- Upload Dropbox -->
         <div
-            *ngIf="!fileSelected"
+            *ngIf="isAvailable && !fileSelected"
             app-event-blocker
             class="w-full px-10 py-40 rounded text-center cursor-pointer border border-dashed border-gray-400 transition duration-500 hover:bg-indigo-400 hover:border-indigo-400 hover:border-solid text-xl hover:text-white"
             [ngClass]="{ 'bg-indigo-400 border-indigo-400 border-solid': isDragover }"
@@ -25,8 +33,30 @@
             (dragleave)="isDragover = false"
             (mouseleave)="isDragover = false"
             (drop)="storeFile($event)"
+            (click)="fileUpload.click()"
         >
-            <h5>Drop your file here (mp4 only!)</h5>
+            <input
+                #fileUpload
+                type="file"
+                hidden
+                accept="video/mp4"
+                (change)="storeFile($event)"
+            >
+
+            <h5>
+                {{
+                    !ffmpegService.isRunning
+                        ? 'Drop your file here (mp4 only!)'
+                        : 'Your video is being processing'
+                }}
+            </h5>
+            <ng-template
+                [ngTemplateOutlet]="loader"
+                [ngTemplateOutletContext]="{
+                    condition: ffmpegService.isRunning,
+                    class: 'mt-10 mb-0'
+                }"
+            ></ng-template>
         </div>
 
         <!-- Form -->
@@ -37,15 +67,23 @@
         >
             <!-- Screenshots -->
             <h2 class="my-4 text-xl">Select a Thumbnail</h2>
+
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <div class="border-8 cursor-pointer border-green-400">
-                    <img src="assets/img/1.jpg" />
-                </div>
-                <div class="border-8 cursor-pointer border-transparent">
-                    <img src="assets/img/2.jpg" />
-                </div>
-                <div class="border-8 cursor-pointer border-transparent">
-                    <img src="assets/img/3.jpg" />
+                <div
+                    *ngFor="let screenshot of screenshots; index as ind"
+                    class="flex justify-center cursor-pointer"
+                    (click)="selectScreenshot(ind)"
+                >
+                    <img
+                        class="border-8"
+                        [class]="
+                            ind == selectedScreenshotInd
+                                ? 'border-green-400'
+                                : 'border-transparent'
+                        "
+                        [src]="screenshot"
+                        [alt]="'Screenshot #' + (ind + 1) + ' of the uploaded video'"
+                    />
                 </div>
             </div>
 
@@ -70,3 +108,27 @@
         </form>
     </div>
 </section>
+
+<ng-template
+    #loader
+    let-condition="condition"
+    let-class="class"
+>
+    <div
+        *ngIf="condition"
+        class="size-24 text-center flex justify-center mx-auto"
+        [class]="class"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#e8eaed"
+            class="animate-spin"
+        >
+            <path
+                d="M204-318q-22-38-33-78t-11-82q0-134 93-228t227-94h7l-64-64 56-56 160 160-160 160-56-56 64-64h-7q-100 0-170 70.5T240-478q0 26 6 51t18 49l-60 60ZM481-40 321-200l160-160 56 56-64 64h7q100 0 170-70.5T720-482q0-26-6-51t-18-49l60-60q22 38 33 78t11 82q0 134-93 228t-227 94h-7l64 64-56 56Z" />
+        </svg>
+    </div>
+</ng-template>

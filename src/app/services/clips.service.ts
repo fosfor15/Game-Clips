@@ -57,6 +57,9 @@ export default class ClipsService {
 
         const clipRef = doc(this.firestoreService, 'clips', clip.docId as string);
         await deleteDoc(clipRef);
+
+        const screenshotRef = ref(this.storageService, `screenshots/${clip.screenshotFileName}`);
+        deleteObject(screenshotRef);
     }
 
 }

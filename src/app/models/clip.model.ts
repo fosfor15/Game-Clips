@@ -6,6 +6,8 @@ export default interface IClip {
     title: string;
     fileName: string;
     clipUrl: string;
+    screenshotFileName: string;
+    screenshotUrl: string;
     docId?: string;
     timestamp: Timestamp;
 }
