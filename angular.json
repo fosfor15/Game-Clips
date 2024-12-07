@@ -31,7 +31,11 @@
                                 "output": "node_modules/@ffmpeg/core/dist"
                             }
                         ],
-                        "styles": ["src/styles.css"],
+                        "styles": [
+                            "src/styles.css",
+                            "video.js/dist/video-js.css",
+                            "@videojs/themes/dist/forest/index.css"
+                        ],
                         "scripts": []
                     },
                     "configurations": {

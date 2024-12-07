@@ -10,6 +10,8 @@ import { UploadComponent } from './pages/upload/upload.component';
 import { ClipComponent } from './pages/clip/clip.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
+import { GetClipResolver } from './shared/resolvers/get-clip.resolver';
+
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo('/');
 
@@ -46,7 +48,10 @@ const routes: Routes = [
     },
     {
         path: 'clip/:id',
-        component: ClipComponent
+        component: ClipComponent,
+        resolve: {
+            clip: GetClipResolver
+        }
     },
     {
         path: '**',
@@ -56,10 +61,15 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, {
+
+        })
     ],
     exports: [
         RouterModule
+    ],
+    providers: [
+        GetClipResolver
     ]
 })
 export class AppRoutingModule {}

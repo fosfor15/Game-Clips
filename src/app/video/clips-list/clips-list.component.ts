@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
 import { fromEvent, sampleTime, Subscription } from 'rxjs';
 import IClip from 'src/app/models/clip.model';
 
@@ -12,6 +12,8 @@ import ClipsService from 'src/app/services/clips.service';
 })
 export class ClipsListComponent implements OnInit, OnDestroy {
 
+    @Input() scrollable: boolean = true;
+
     private scrollSub!: Subscription;
 
     constructor(
@@ -20,13 +22,20 @@ export class ClipsListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.clipsService.getClips();
-        this.scrollSub = fromEvent(window, 'scroll')
-            .pipe(sampleTime(100))
-            .subscribe(this.handleScroll);
+
+        if (this.scrollable) {
+            this.scrollSub = fromEvent(window, 'scroll')
+                .pipe(sampleTime(100))
+                .subscribe(this.handleScroll);
+        }
     }
 
     ngOnDestroy(): void {
-        this.scrollSub.unsubscribe();
+        this.clipsService.clipsPage = [];
+
+        if (this.scrollable) {
+            this.scrollSub.unsubscribe();
+        }
     }
 
     private handleScroll = () => {

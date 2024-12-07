@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import videojs from 'video.js';
+
+import IClip from 'src/app/models/clip.model';
 
 
 @Component({
@@ -9,16 +13,26 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class ClipComponent implements OnInit {
 
-    public id: string = '';
+    @ViewChild('videoPlayer', { static: true }) private videoPlayer!: ElementRef<HTMLVideoElement>;
+
+    public clipId: string = '';
+    public clip: IClip | null = null;
+
 
     constructor(
         private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
-        this.activatedRoute.params
-            .subscribe((params: Params) => {
-                this.id = params['id'];
+        const videoPlayer = videojs(this.videoPlayer.nativeElement);
+
+        this.activatedRoute.data
+            .subscribe(data => {
+                this.clip = data['clip'] as IClip;
+                videoPlayer.src({
+                    src: this.clip.clipUrl,
+                    type: 'video/mp4'
+                });
             });
     }
 

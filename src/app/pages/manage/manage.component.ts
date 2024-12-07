@@ -19,6 +19,9 @@ export class ManageComponent implements OnInit {
 
     public sortType: '1' | '2' = '1';
 
+    public isLinkCopied: boolean = false;
+    public copiedClipId: string = '';
+
 
     constructor(
         private router: Router,
@@ -90,6 +93,24 @@ export class ManageComponent implements OnInit {
         event.preventDefault();
         await this.clipsService.deleteClip(deletingClip);
         this.clips = this.clips.filter(clip => clip.docId != deletingClip.docId);
+    }
+
+    public async copyToClipboard(event: Event, clipId: string | undefined): Promise<void> {
+        event.preventDefault();
+
+        if (!clipId) {
+            return;
+        }
+
+        const url = `${location.origin}/clip/${clipId}`;
+        await navigator.clipboard.writeText(url);
+
+        this.copiedClipId = clipId;
+        this.isLinkCopied = true;
+
+        setTimeout(() => {
+            this.isLinkCopied = false;
+        }, 1.5e3);
     }
 
 }

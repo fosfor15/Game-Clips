@@ -74,7 +74,7 @@ export default class ClipsService {
         deleteObject(screenshotRef);
     }
 
-    public async getClips(): Promise<any> {
+    public async getClips(): Promise<void> {
         if (this.pendingRequest) {
             return;
         }

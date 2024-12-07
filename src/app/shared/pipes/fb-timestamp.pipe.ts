@@ -7,7 +7,7 @@ import { Timestamp } from '@angular/fire/firestore';
     name: 'fbTimestamp'
 })
 export class FbTimestampPipe implements PipeTransform {
-    transform(value: Timestamp): Date {
-        return value.toDate();
+    transform(value: Timestamp | undefined): Date {
+        return value?.toDate() || new Date();
     }
 }
