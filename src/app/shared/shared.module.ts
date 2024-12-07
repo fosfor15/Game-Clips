@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { NgxMaskModule } from 'ngx-mask';
 
 import { ButtonComponent } from './button/button.component';
@@ -9,6 +10,9 @@ import { AlertComponent } from './alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { TabsContainerComponent } from './tabs-container/tabs-container.component';
 import { TabComponent } from './tab/tab.component';
+
+import { EventBlockerDirective } from './directives/event-blocker.directive';
+import { FbTimestampPipe } from './pipes/fb-timestamp.pipe';
 
 
 @NgModule({
@@ -23,7 +27,9 @@ import { TabComponent } from './tab/tab.component';
         AlertComponent,
         ModalComponent,
         TabsContainerComponent,
-        TabComponent
+        TabComponent,
+        EventBlockerDirective,
+        FbTimestampPipe
     ],
     exports: [
         InputComponent,
@@ -31,7 +37,9 @@ import { TabComponent } from './tab/tab.component';
         AlertComponent,
         ModalComponent,
         TabsContainerComponent,
-        TabComponent
+        TabComponent,
+        EventBlockerDirective,
+        FbTimestampPipe
     ]
 })
 export class SharedModule { }

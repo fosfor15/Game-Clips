@@ -11,6 +11,11 @@ import {
     deleteDoc,
     doc,
     collection,
+    orderBy,
+    limit,
+    startAfter,
+    QueryConstraint,
+    QueryDocumentSnapshot,
     query,
     where,
     updateDoc
@@ -26,6 +31,12 @@ import IClip from '../models/clip.model';
 export default class ClipsService {
 
     private clipsCollection: CollectionReference;
+    public clipsPage: IClip[] = [];
+    private lastClip: QueryDocumentSnapshot | null = null;
+
+    private pendingRequest: boolean = false;
+    public isAllClipsDownloaded: boolean = false;
+
 
     constructor(
         private authService: Auth,
@@ -34,6 +45,7 @@ export default class ClipsService {
     ) {
         this.clipsCollection = collection(firestoreService, 'clips');
     }
+
 
     public async createClip(data: IClip): Promise<DocumentData> {
         return await addDoc(this.clipsCollection, data);
@@ -60,6 +72,42 @@ export default class ClipsService {
 
         const screenshotRef = ref(this.storageService, `screenshots/${clip.screenshotFileName}`);
         deleteObject(screenshotRef);
+    }
+
+    public async getClips(): Promise<any> {
+        if (this.pendingRequest) {
+            return;
+        }
+
+        const queryParams: QueryConstraint[] = [
+            orderBy('timestamp', 'desc'),
+            limit(6)
+        ];
+        if (this.clipsPage.length) {
+            queryParams.push(startAfter(this.lastClip));
+        }
+
+        const queryRef = query(this.clipsCollection, ...queryParams);
+
+        this.pendingRequest = true;
+        const snapshots = await getDocs(queryRef);
+        this.pendingRequest = false;
+
+        if (!snapshots.docs.length) {
+            this.isAllClipsDownloaded = true;
+            return;
+        }
+
+        this.clipsPage = this.clipsPage.concat(
+            snapshots.docs.map(doc => {
+                const docData = doc.data();
+                return {
+                    ...docData,
+                    docId: doc.id
+                } as IClip;
+            })
+        );
+        this.lastClip = snapshots.docs.at(-1) ?? null;
     }
 
 }
