@@ -4,7 +4,7 @@ import { ResolveFn } from '@angular/router';
 import { getClipResolver } from './get-clip.resolver';
 
 describe('getClipResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+  const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
       TestBed.runInInjectionContext(() => getClipResolver(...resolverParameters));
 
   beforeEach(() => {
