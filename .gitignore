@@ -3,6 +3,9 @@
 # Secret environment
 .env
 
+# Text files
+*.txt
+
 # Compiled output
 /dist
 /tmp
