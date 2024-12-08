@@ -12,12 +12,12 @@
             <!-- Primary Navigation -->
             <ul class="flex flex-row mt-1">
                 <!-- Navigation Links -->
-
                 <ng-container *ngIf="authService.authState$ | async; else loginRegister">
                     <li>
                         <a
                             class="px-2 hover:text-indigo-400 transition"
                             href="#"
+                            autotest="logout-link"
                             (click)="logOut($event)"
                         >
                             Log out

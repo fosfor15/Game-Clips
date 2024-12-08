@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+    public readonly title = 'game-clips';
+
     public renderAuthModal: boolean = false;
     private authServiceSub!: Subscription;
 
