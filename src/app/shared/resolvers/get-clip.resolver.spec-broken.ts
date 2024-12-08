@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { ResolveFn } from '@angular/router';
 
-import { getClipResolver } from './get-clip.resolver';
+import { GetClipResolver } from './get-clip.resolver';
 
 describe('getClipResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
-      TestBed.runInInjectionContext(() => getClipResolver(...resolverParameters));
+    let resolver: GetClipResolver;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        resolver = TestBed.inject(GetClipResolver);
+    });
 
-  it('should be created', () => {
-    expect(executeResolver).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(resolver).toBeTruthy();
+    });
 });
